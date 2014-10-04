@@ -1,0 +1,23 @@
+{
+  "manifest_version": 2,
+
+  "name": "Twitter Spoiler Blocker",
+  "description": "This extension blocks Game of Thrones spoilers from Twitter.",
+  "version": "1.0",
+  
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://twitter.com/*"],
+      "css": ["main.css"],
+      "js": ["contentscript.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "permissions": [
+     "tabs"
+    ]
+}
