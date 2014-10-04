@@ -1,4 +1,3 @@
-
 addam
 addy
 adrack
@@ -10,7 +9,11 @@ alfie
 allen
 alliser
 alton
+always
+amaz
 amory
+ancient
+angry
 anguy
 anya
 appear
@@ -38,6 +41,7 @@ bathhouse
 battle
 bean
 bear
+beaut
 become
 been
 begin
@@ -140,6 +144,7 @@ davos
 daxos
 dead
 death
+debt
 decide
 dempsie
 denys
@@ -193,6 +198,8 @@ eraz
 erenford
 essos
 evening
+every
+everything
 explain
 eyed
 eyrie
@@ -203,6 +210,7 @@ fall
 farlen
 farmer
 father
+fear
 feast
 feel
 fell
@@ -226,6 +234,7 @@ fruit
 fuck
 galbart
 game
+gameofthrones
 garden
 gared
 gate
@@ -268,7 +277,6 @@ guardsman
 guest
 guymon
 gwendoline
-hghar
 halfhand
 hallyne
 hamlet
@@ -291,6 +299,7 @@ help
 hempsteadwright
 herald
 herd
+hghar
 high
 highgarden
 hill
@@ -484,6 +493,7 @@ nobel
 nobleman
 north
 northern
+nothing
 nude
 nudity
 nymeria
@@ -515,6 +525,7 @@ pentoshi
 peter
 petitioner
 petyr
+pirat
 play
 plot
 podrick
@@ -553,6 +564,7 @@ ramsay
 ranger
 rape
 rast
+rating
 rattleshirt
 raven
 rayder
@@ -598,6 +610,7 @@ sandor
 sansa
 saturday
 save
+scar
 scout
 screw
 sean
@@ -605,6 +618,7 @@ season
 seaworth
 second
 seem
+self
 sell
 selmy
 selyse
@@ -623,6 +637,7 @@ shit
 shock
 show
 sibel
+sick
 siege
 silk
 singing
@@ -631,6 +646,7 @@ slave
 slynt
 snow
 soldier
+sometime
 song
 sons
 sophie
@@ -789,27 +805,3 @@ yoren
 young
 younger
 yunkai
-gameofthrones
-amaz
-beaut
-scar
-angry
-mad
-sick
-fear
-self
-man
-woman
-yes
-ancient
-pirat
-rating
-high
-debt
-pay
-always
-never
-sometime
-nothing
-everything
-every
