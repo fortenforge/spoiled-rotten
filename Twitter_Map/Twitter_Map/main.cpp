@@ -54,7 +54,7 @@ int main(int argc, const char * argv[]) {
         istringstream iss(s);
         int spoiler;
         iss>>spoiler;
-        if (spoiler >episode) fout2<<"+1";
+        if (spoiler >=episode) fout2<<"+1";
         else fout2<<"-1";
         while (iss){
             string s;
