@@ -1,83 +1,145 @@
-// Copyright (c) 2012 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
+function update() {
+  var link1 = document.getElementById('link1');
+  var link2 = document.getElementById('link2');
+  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+    chrome.tabs.sendMessage(tabs[0].id, {season: link1.value, episode: link2.value}, function(response) {
+    console.log(response.farewell);
+    });
+  });
+}
 
-/**
- * Global variable containing the query we'd like to pass to Flickr. In this
- * case, kittens!
- *
- * @type {string}
- */
-var QUERY = 'puppies';
-
-var kittenGenerator = {
-  /**
-   * Flickr URL that will give us lots and lots of whatever we're looking for.
-   *
-   * See http://www.flickr.com/services/api/flickr.photos.search.html for
-   * details about the construction of this URL.
-   *
-   * @type {string}
-   * @private
-   */
-  searchOnFlickr_: 'https://secure.flickr.com/services/rest/?' +
-      'method=flickr.photos.search&' +
-      'api_key=90485e931f687a9b9c2a66bf58a3861a&' +
-      'text=' + encodeURIComponent(QUERY) + '&' +
-      'safe_search=1&' +
-      'content_type=1&' +
-      'sort=interestingness-desc&' +
-      'per_page=20',
-
-  /**
-   * Sends an XHR GET request to grab photos of lots and lots of kittens. The
-   * XHR's 'onload' event is hooks up to the 'showPhotos_' method.
-   *
-   * @public
-   */
-  requestKittens: function() {
-    var req = new XMLHttpRequest();
-    req.open("GET", this.searchOnFlickr_, true);
-    req.onload = this.showPhotos_.bind(this);
-    req.send(null);
-  },
-
-  /**
-   * Handle the 'onload' event of our kitten XHR request, generated in
-   * 'requestKittens', by generating 'img' elements, and stuffing them into
-   * the document for display.
-   *
-   * @param {ProgressEvent} e The XHR ProgressEvent.
-   * @private
-   */
-  showPhotos_: function (e) {
-    var kittens = e.target.responseXML.querySelectorAll('photo');
-    for (var i = 0; i < kittens.length; i++) {
-      var img = document.createElement('img');
-      img.src = this.constructKittenURL_(kittens[i]);
-      img.setAttribute('alt', kittens[i].getAttribute('title'));
-      document.body.appendChild(img);
-    }
-  },
-
-  /**
-   * Given a photo, construct a URL using the method outlined at
-   * http://www.flickr.com/services/api/misc.urlKittenl
-   *
-   * @param {DOMElement} A kitten.
-   * @return {string} The kitten's URL.
-   * @private
-   */
-  constructKittenURL_: function (photo) {
-    return "http://farm" + photo.getAttribute("farm") +
-        ".static.flickr.com/" + photo.getAttribute("server") +
-        "/" + photo.getAttribute("id") +
-        "_" + photo.getAttribute("secret") +
-        "_s.jpg";
+chrome.storage.sync.get('season', function (data) {
+  if (chrome.runtime.lastError) {
+    return;
   }
-};
-
-// Run our kitten generation script as soon as the document's DOM is ready.
-document.addEventListener('DOMContentLoaded', function () {
-  kittenGenerator.requestKittens();
+  console.log('sfull');
+  console.log(data);
+  var link1 = document.getElementById('link1');
+  switch(data.season)
+  {
+    case '1':
+      console.log('s1');
+      link1.value = '1';
+    break;
+    case '2':
+      console.log('s2');
+      link1.value = '2';
+    break;
+    case '3':
+      console.log('s3');
+      link1.value = '3';
+    break;
+    case '4':
+      console.log('s4');
+      link1.value = '4';
+    break;
+    default:
+      console.log('none');
+      chrome.storage.sync.set({'season': '1'}, function() {
+        console.log('Setting for season saved');
+      });
+      link1.value = '1';
+  }
+  document.getElementById('num1').innerHTML = 'Season ' + link1.value;
 });
+
+chrome.storage.sync.get('episode', function (data) {
+  if (chrome.runtime.lastError) {
+    return;
+  }
+  console.log('efull');
+  var link2 = document.getElementById('link2');
+  switch(data.episode)
+  {
+    case '1':
+      console.log('e1');
+      link2.value = '1';
+    break;
+    case '2':
+      console.log('e2');
+      link2.value = '2';
+    break;
+    case '3':
+      console.log('e3');
+      link2.value = '3';
+    break;
+    case '4':
+      console.log('e4');
+      link2.value = '4';
+    break;
+    case '5':
+      console.log('e5');
+      link2.value = '5';
+    break;
+    case '6':
+      console.log('e6');
+      link2.value = '6';
+    break;
+    case '7':
+      console.log('e7');
+      link2.value = '7';
+    break;
+    case '8':
+      console.log('e8');
+      link2.value = '8';
+    break;
+    case '9':
+      console.log('e9');
+      link2.value = '9';
+    break;
+    case '10':
+      console.log('e10');
+      link2.value = '10';
+    break;
+    default:
+      console.log('none');
+      chrome.storage.sync.set({'episode': '1'}, function() {
+        console.log('Setting for episode saved');
+      });
+      link2.value = '1';
+  }
+  document.getElementById('num2').innerHTML = 'Episode ' + link2.value;
+  update();
+});
+/*console.log('hi');
+chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+  console.log('begin');
+  chrome.tabs.sendMessage(tabs[0].id, {season: link1.value, episode: link2.value}, function(response) {
+  console.log('response');
+  console.log(response.farewell);
+  });
+});*/
+document.addEventListener('DOMContentLoaded', function() {
+  var link1 = document.getElementById('link1');
+  link1.addEventListener('input', function() {
+    document.getElementById('num1').innerHTML = 'Season ' + link1.value;
+    console.log('link1');
+    chrome.storage.sync.set({'season': link1.value}, function() {
+      console.log('Setting for season updated');
+    });
+    update();
+  });
+});
+document.addEventListener('DOMContentLoaded', function() {
+  var link2 = document.getElementById('link2');
+  link2.addEventListener('input', function() {
+    document.getElementById('num2').innerHTML = 'Episode ' + link2.value;
+    console.log('link2');
+    chrome.storage.sync.set({'episode': link2.value}, function() {
+      console.log('Setting for episode updated');
+    });
+    update();
+  });
+});
+/*
+function showValue(vol) {
+  document.getElementById('num').innerHTML = vol;
+  //document.getElementById('range').innerHTML = x;
+}
+
+var e = document.getElementById('slider');
+e.onchange = showValue(e.value);
+/*
+document.addEventListener('DOMContentLoaded', function (newValue) {
+  showValue(newValue);
+});*/

@@ -2,34 +2,41 @@
 <html>
   <head>
     <title>Twitter Spoiler Blocker's Popup</title>
-    <!--
+    
     <style>
-      body {
-        min-width: 357px;
-        overflow-x: hidden;
+      /*body {
+        width: 500px;
+      }*/
+      p {
+        font-family: "Avenir", Arial, sans-serif;
+        font-weight: bold;
+        text-align: center;
       }
 
-      img {
-        margin: 5px;
-        border: 2px solid black;
-        vertical-align: middle;
-        width: 75px;
-        height: 75px;
+      span {
+        font-family: "Avenir", Arial, sans-serif;
+        text-align: left;
       }
     </style>
-    -->
+    
     <!--
       - JavaScript and HTML must be in separate files: see our Content Security
       - Policy documentation[1] for details and explanation.
       -
       - [1]: http://developer.chrome.com/extensions/contentSecurityPolicy.html
      -->
-    <!--<script src="popup.js"></script>-->
+    <script src="popup.js"></script>
+    <script src="background.js"></script>
   </head>
   <body>
-    <h1>
-      HELLO
-    </h1>
+    <p>
+      Select a season and episode.
+    </p>
+    <form>
+      <input type="range" min="1" max="4" step="1" id="link1">
+      <span id="num1"></span>
+      <input type="range" min="1" max="10" step="1" id="link2">
+      <span id="num2"></span>
+    </form>
   </body>
 </html>
-

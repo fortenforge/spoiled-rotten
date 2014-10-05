@@ -247,39 +247,66 @@ function processTweet(tweet) {
   tweet = tweet.toLowerCase();
   return tweet;
 }
-
-len = 0;
-var tweets = [];
-first = '';
-setInterval(function() {
-  var p = document.getElementsByClassName('js-tweet-text tweet-text');
-  if (p.length != len) {
-    for (i = 0; i < p.length; i ++) {
-      if (p[i].innerHTML.substring(0, 10) != '<font colo') {
-        console.log(p[i].innerText);
-        if (i == 0) {
-          if (first != p[i].innerText) {
-            tweets = [];
-          }
-          else {
-            first = p[i].innerText;
+/*
+var port = chrome.runtime.connect({name:"contentscript"});
+port.onMessage.addListener(function(message,sender){
+  censorPage(message.season, message.episode);
+});*/
+function censorPage(season, episode) {
+    len = 0;
+    var tweets = [];
+    first = '';
+    code = 's' + season + 'e' + episode
+    spoiler = '*Spoilers for ' + code + '*';
+    setInterval(function() {
+      var p = document.getElementsByClassName('js-tweet-text tweet-text');
+      if (p.length != len) {
+        for (i = 0; i < p.length; i ++) {
+          var secondstar = p[i].innerHTML.indexOf('*', 33);
+          if (p[i].innerHTML.substring(32, secondstar) != code) {
+            //console.log(p[i].innerText);
+            if (i == 0) {
+              if (first != p[i].innerText) {
+                tweets = [];
+              }
+              else {
+                first = p[i].innerText;
+              }
+            }
+            tweets[tweets.length] = processTweet(p[i].innerText) + '\n';
+            if (p[i].innerHTML.substring(0, 10) == '<font colo') {
+              p[i].innerHTML = p[i].innerHTML.substring(0, 32) + code + p[i].innerHTML.substring(secondstar);
+            }
+            else {
+              p[i].innerHTML = '<font color="red">' + spoiler + '</span>' + ' ' + '<span class="spoiler">' + p[i].innerText + '</span>';
+            }
           }
         }
-        tweets[tweets.length] = processTweet(p[i].innerText) + '\n';
-        p[i].innerHTML = '<font color="red">*Spoilers!*</span>' + ' ' + '<span class="spoiler">' + p[i].innerText + '</span>';
+        len = p.length;
+        //tweets.unshift(tweets.length + '\n');
+        //var blob = new Blob(tweets, {type: "text/plain;charset=utf-8"});
+        //saveAs(blob, "tweets.txt");
       }
-    }
-    len = p.length;
-    //tweets.unshift(tweets.length + '\n');
-    var blob = new Blob(tweets, {type: "text/plain;charset=utf-8"});
-    saveAs(blob, "tweets.txt");
-  }
-  var q = document.getElementsByClassName('cards-media-container js-media-container');
-  for (j = 0; j < q.length; j ++) {
-    q[j].innerHTML = '';
-  }
-}, 10000);
+      var q = document.getElementsByClassName('cards-media-container js-media-container');
+      for (j = 0; j < q.length; j ++) {
+        q[j].innerHTML = '';
+      }
+    }, 1000);
+}
 
+chrome.runtime.sendMessage({method: "getSE"}, function(response) {
+  censorPage(response.season, response.episode);
+});
+
+chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse) {
+    console.log(sender.tab ? "from a content script:" + sender.tab.url :
+                "from the extension");
+    console.log(request.season);
+    console.log(request.episode);
+    censorPage(request.season, request.episode);
+  }
+);
 /*myButton = document.createElement("input");
 myButton.type = "button";
 myButton.value = "my button";
