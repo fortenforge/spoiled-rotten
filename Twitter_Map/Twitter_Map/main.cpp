@@ -13,7 +13,11 @@ int main(int argc, const char * argv[]) {
     ofstream fout("featuresnew.txt");
     ifstream fin2("featuresnew.txt");
     ifstream fin3("twitter.txt");
-    ofstream fout2("svmtwitter.txt");
+    stringstream ss;
+    ss<<"svmtwitter";
+    ss<<argv[1];
+    ss<<".txt";
+    ofstream fout2(ss.str());
     int episode = atoi(argv[1]);
     //cout<<episode<<endl;
     string s;
@@ -54,7 +58,7 @@ int main(int argc, const char * argv[]) {
         istringstream iss(s);
         int spoiler;
         iss>>spoiler;
-        if (spoiler >=episode) fout2<<"+1";
+        if (spoiler >episode) fout2<<"+1";
         else fout2<<"-1";
         while (iss){
             string s;
